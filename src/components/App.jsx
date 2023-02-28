@@ -1,27 +1,37 @@
 import { GlobalStyle } from './GlobalStyle';
 import { Layout } from './Layout';
+import axios from 'axios';
 
 import { Component } from 'react';
 import { SearchBar } from './searchbar/SearchBar';
 import { ImageGallery } from './imageGallery/ImageGallery';
 
+axios.defaults.baseURL = 'https://pixabay.com/api/';
+
 export class App extends Component {
   state = {
-    contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-    ],
-    filter: '',
+    collections: [],
   };
+
+  async onSubmit(value) {
+    console.log(value);
+    const response = await axios.get(
+      '?q=cat&page=1&key=32355141-118a8dcb9c7f98144e9365121&image_type=photo&orientation=horizontal&per_page=12'
+    );
+    // this.setState(prevState =>{return { collections: [...prevState, response.data.hits] };})
+
+    const targetArr = response.data.hits;
+    console.log(targetArr);
+    console.log(this.state.collections);
+    // this.setState({ collections: targetArr });
+  }
 
   render() {
     return (
       <Layout>
         <GlobalStyle />
 
-        <SearchBar></SearchBar>
+        <SearchBar onSubmit={this.onSubmit}></SearchBar>
 
         <ImageGallery></ImageGallery>
       </Layout>

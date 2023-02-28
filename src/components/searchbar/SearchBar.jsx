@@ -1,5 +1,3 @@
-import { StyledComponent } from 'styled-components';
-
 import { RiFindReplaceLine } from 'react-icons/ri';
 
 import {
@@ -8,23 +6,39 @@ import {
   SearchFormBtn,
   SearchInput,
 } from './SearchBar.styles';
+import PropTypes from 'prop-types';
 
-export const SearchBar = () => {
+let findValue = '';
+
+export const SearchBar = ({ onSubmit }) => {
   return (
-    <FindSection class="searchbar">
-      <SearchForm class="form">
-        <SearchFormBtn type="submit" class="button">
+    <FindSection className="searchbar">
+      <SearchForm
+        className="form"
+        onSubmit={e => {
+          e.preventDefault();
+          onSubmit(findValue);
+        }}
+      >
+        <SearchFormBtn type="submit" className="button">
           <RiFindReplaceLine></RiFindReplaceLine>
         </SearchFormBtn>
 
         <SearchInput
-          class="input"
+          onChange={e => {
+            findValue = e.target.value;
+          }}
+          className="input"
           type="text"
           autocomplete="off"
-          autofocus
+          autoFocus
           placeholder="Search images and photos"
         />
       </SearchForm>
     </FindSection>
   );
+};
+
+SearchBar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
 };
