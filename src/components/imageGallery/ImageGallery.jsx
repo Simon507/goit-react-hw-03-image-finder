@@ -1,5 +1,3 @@
-import { StyledComponent } from 'styled-components';
-
 import { ImageGalleryItem } from 'components/imageGalleryItem/ImageGalleryItem';
 
 export const ImageGallery = () => {
