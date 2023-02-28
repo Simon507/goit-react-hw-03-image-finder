@@ -18,12 +18,9 @@ export class App extends Component {
     const response = await axios.get(
       '?q=cat&page=1&key=32355141-118a8dcb9c7f98144e9365121&image_type=photo&orientation=horizontal&per_page=12'
     );
-    // this.setState(prevState =>{return { collections: [...prevState, response.data.hits] };})
 
     const targetArr = response.data.hits;
     console.log(targetArr);
-    console.log(this.state.collections);
-    // this.setState({ collections: targetArr });
   }
 
   render() {
