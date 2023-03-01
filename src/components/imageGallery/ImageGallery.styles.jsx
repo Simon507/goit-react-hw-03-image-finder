@@ -12,3 +12,9 @@ export const Imagelist = styled.ul`
   margin-left: auto;
   margin-right: auto;
 `;
+
+export const GalleryItem = styled.li`
+  overflow: hidden;
+  border-radius: 5px;
+  box-shadow: 6px 6px 6px 0px rgba(0, 0, 0, 0.75);
+`;
