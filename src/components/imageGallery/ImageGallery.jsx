@@ -1,10 +1,22 @@
-import { ImageGalleryItem } from 'components/imageGalleryItem/ImageGalleryItem';
+import PropTypes from 'prop-types';
 
-export const ImageGallery = () => {
+import { ImageGalleryItem } from 'components/imageGalleryItem/ImageGalleryItem';
+import { Imagelist } from './ImageGallery.styles';
+
+export const ImageGallery = ({ collections }) => {
   return (
-    <ul className="gallery">
-      <h3>ПОЛЕ ДЛЯ КОЛЛЕКЦИИ </h3>
-      <ImageGalleryItem />
-    </ul>
+    <Imagelist className="gallery">
+      {collections.map(item => (
+        <ImageGalleryItem
+          webformatURL={item.webformatURL}
+          tags={item.tags}
+          key={item.id}
+        />
+      ))}
+    </Imagelist>
   );
+};
+
+ImageGallery.propTypes = {
+  collections: PropTypes.array.isRequired,
 };
