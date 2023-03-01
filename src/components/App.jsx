@@ -1,6 +1,7 @@
 import { GlobalStyle } from './GlobalStyle';
 import { Layout } from './Layout';
 import axios from 'axios';
+import * as basicLightbox from 'basiclightbox';
 
 import { Component } from 'react';
 import { SearchBar } from './searchbar/SearchBar';
@@ -20,6 +21,21 @@ export class App extends Component {
   onSubmit(value) {
     setQuerry = value;
     console.log(setQuerry);
+  }
+
+  onImageClick(webformatURL, tags) {
+    //     const instance = basicLightbox.create(`
+    //      <div className="overlay">
+    //       <div className="modal">
+    //         <img src="" alt="" />
+    //       </div>
+    //     </div>
+    // `);
+
+    //     instance.show();
+
+    console.log(webformatURL);
+    console.log(tags);
   }
 
   async componentDidMount() {
@@ -50,7 +66,10 @@ export class App extends Component {
 
         <SearchBar onSubmit={this.onSubmit}></SearchBar>
 
-        <ImageGallery collections={targetArr}></ImageGallery>
+        <ImageGallery
+          collections={targetArr}
+          onImageClick={this.onImageClick}
+        ></ImageGallery>
       </Layout>
     );
   }
