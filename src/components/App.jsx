@@ -1,7 +1,7 @@
 import { GlobalStyle } from './GlobalStyle';
 import { Layout } from './Layout';
 import axios from 'axios';
-import * as basicLightbox from 'basiclightbox';
+// import * as basicLightbox from 'basiclightbox';
 
 import { Component } from 'react';
 import { SearchBar } from './searchbar/SearchBar';
