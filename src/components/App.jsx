@@ -14,6 +14,7 @@ export class App extends Component {
   state = {
     collections: [],
     target: '',
+    targetArr: [],
     page: 1,
   };
 
@@ -42,8 +43,11 @@ export class App extends Component {
     console.log(tags);
   }
 
-  onFind = targetArr => {
-    this.setState({ collections: targetArr });
+  onFind = targetList => {
+    console.log(targetList);
+    const oldArr = this.state.collections;
+    const newArr = oldArr.concat(targetList);
+    this.setState({ collections: newArr });
   };
 
   render() {
@@ -52,17 +56,17 @@ export class App extends Component {
         <GlobalStyle />
 
         <SearchBar onSubmit={this.onSubmit}></SearchBar>
-        <SearchQuerry
-          target={this.state.target}
-          onFind={this.onFind}
-          page={this.state.page}
-        ></SearchQuerry>
 
         <ImageGallery
           collections={this.state.collections}
           onImageClick={this.onImageClick}
           onBtnClick={this.onBtnClick}
         ></ImageGallery>
+        <SearchQuerry
+          target={this.state.target}
+          onFind={this.onFind}
+          page={this.state.page}
+        ></SearchQuerry>
       </Layout>
     );
   }
