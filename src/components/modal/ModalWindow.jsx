@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import { Overlay, ModalFrame } from './Modal.styles';
+import { Overlay, ModalFrame } from './ModalWindow.styles';
 
 // const ModalWindow = document.querySelector('.overlay');
 

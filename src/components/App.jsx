@@ -6,7 +6,7 @@ import { Component } from 'react';
 import { SearchBar } from './searchbar/SearchBar';
 import { SearchQuerry } from './SearchQuerry';
 import { ImageGallery } from './imageGallery/ImageGallery';
-import { ModalWindow } from './modal/Modal';
+import { ModalWindow } from './modal/ModalWindow';
 import Loader from './loader/Loader';
 
 export class App extends Component {
@@ -76,9 +76,7 @@ export class App extends Component {
             tags={this.state.modalTxt}
             onOverlayClick={this.onOverlayClick}
             // onKeyDown={this.onKeyDown}
-          >
-            text
-          </ModalWindow>
+          ></ModalWindow>
         )}
         {/* 
         <>
