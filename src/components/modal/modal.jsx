@@ -4,7 +4,7 @@ import { Overlay, ModalFrame } from './Modal.styles';
 
 // const ModalWindow = document.querySelector('.overlay');
 
-export const Modal = ({ largeImageURL, tags, onOverlayClick }) => {
+export const ModalWindow = ({ largeImageURL, tags, onOverlayClick }) => {
   // const onKeyDown = e => {
   //   console.log(e);
   // };
@@ -19,7 +19,7 @@ export const Modal = ({ largeImageURL, tags, onOverlayClick }) => {
   );
 };
 
-Modal.propTypes = {
+ModalWindow.propTypes = {
   largeImageURL: PropTypes.string.isRequired,
   tags: PropTypes.string.isRequired,
   onOverlayClick: PropTypes.func.isRequired,
