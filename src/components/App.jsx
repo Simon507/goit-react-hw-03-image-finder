@@ -5,23 +5,27 @@ import axios from 'axios';
 
 import { Component } from 'react';
 import { SearchBar } from './searchbar/SearchBar';
+import { SearchQuerry } from './SearchQuerry';
 import { ImageGallery } from './imageGallery/ImageGallery';
 
 axios.defaults.baseURL = 'https://pixabay.com/api/';
-
-let setQuerry = '';
-let targetArr = [];
 
 export class App extends Component {
   state = {
     collections: [],
     target: '',
+    page: 1,
   };
 
-  onSubmit(value) {
-    setQuerry = value;
-    console.log(setQuerry);
-  }
+  onSubmit = target => {
+    this.setState({ target });
+  };
+
+  onBtnClick = e => {
+    let pageNumber = this.state.page;
+    pageNumber += 1;
+    this.setState({ page: pageNumber });
+  };
 
   onImageClick(webformatURL, tags) {
     //     const instance = basicLightbox.create(`
@@ -38,26 +42,9 @@ export class App extends Component {
     console.log(tags);
   }
 
-  async componentDidMount() {
-    const response = await axios.get(
-      `?q=${setQuerry}&page=1&key=32355141-118a8dcb9c7f98144e9365121&image_type=photo&orientation=horizontal&per_page=12`
-    );
-
-    targetArr = response.data.hits;
-    console.log(targetArr);
-    this.setState(prevstate => {
-      return { collections: [prevstate.collections, targetArr] };
-    });
-  }
-  // async onSubmit(value) {
-  //   console.log(value);
-  //   const response = await axios.get(
-  //     '?q=cat&page=1&key=32355141-118a8dcb9c7f98144e9365121&image_type=photo&orientation=horizontal&per_page=12'
-  //   );
-
-  //   const targetArr = response.data.hits;
-  //   console.log(targetArr);
-  // }
+  onFind = targetArr => {
+    this.setState({ collections: targetArr });
+  };
 
   render() {
     return (
@@ -65,10 +52,16 @@ export class App extends Component {
         <GlobalStyle />
 
         <SearchBar onSubmit={this.onSubmit}></SearchBar>
+        <SearchQuerry
+          target={this.state.target}
+          onFind={this.onFind}
+          page={this.state.page}
+        ></SearchQuerry>
 
         <ImageGallery
-          collections={targetArr}
+          collections={this.state.collections}
           onImageClick={this.onImageClick}
+          onBtnClick={this.onBtnClick}
         ></ImageGallery>
       </Layout>
     );

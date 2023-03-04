@@ -1,4 +1,5 @@
 import { RiFindReplaceLine } from 'react-icons/ri';
+import { Component } from 'react';
 
 import {
   FindSection,
@@ -8,36 +9,41 @@ import {
 } from './SearchBar.styles';
 import PropTypes from 'prop-types';
 
-let findValue = '';
+export class SearchBar extends Component {
+  state = {
+    target: '',
+    collections: null,
+  };
+  handleChange = ({ target }) => {
+    this.setState({ target: target.value });
+  };
+  handleSubmit = e => {
+    e.preventDefault();
+    this.props.onSubmit(this.state.target);
+  };
 
-export const SearchBar = ({ onSubmit }) => {
-  return (
-    <FindSection className="searchbar">
-      <SearchForm
-        className="form"
-        onSubmit={e => {
-          e.preventDefault();
-          onSubmit(findValue);
-        }}
-      >
-        <SearchFormBtn type="submit" className="button">
-          <RiFindReplaceLine></RiFindReplaceLine>
-        </SearchFormBtn>
+  render() {
+    return (
+      <FindSection className="searchbar">
+        <SearchForm className="form" onSubmit={this.handleSubmit}>
+          <SearchFormBtn type="submit" className="button">
+            <RiFindReplaceLine></RiFindReplaceLine>
+          </SearchFormBtn>
 
-        <SearchInput
-          onChange={e => {
-            findValue = e.target.value;
-          }}
-          className="input"
-          type="text"
-          autocomplete="off"
-          autoFocus
-          placeholder="Search images and photos"
-        />
-      </SearchForm>
-    </FindSection>
-  );
-};
+          <SearchInput
+            className="input"
+            type="text"
+            autocomplete="off"
+            autoFocus
+            placeholder="Search images and photos"
+            target={this.state.value}
+            onChange={this.handleChange}
+          />
+        </SearchForm>
+      </FindSection>
+    );
+  }
+}
 
 SearchBar.propTypes = {
   onSubmit: PropTypes.func.isRequired,

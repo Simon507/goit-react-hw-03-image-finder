@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { ImageGalleryItem } from 'components/imageGalleryItem/ImageGalleryItem';
 import { Imagelist, GalleryItem } from './ImageGallery.styles';
 
-export const ImageGallery = ({ collections, onImageClick }) => {
+export const ImageGallery = ({ collections, onImageClick, onBtnClick }) => {
   return (
     <Imagelist className="gallery">
       {collections.map(item => (
@@ -15,6 +15,11 @@ export const ImageGallery = ({ collections, onImageClick }) => {
           />
         </GalleryItem>
       ))}
+      {collections.length > 0 && (
+        <button type="button" onClick={onBtnClick}>
+          Load more
+        </button>
+      )}
     </Imagelist>
   );
 };
@@ -22,4 +27,5 @@ export const ImageGallery = ({ collections, onImageClick }) => {
 ImageGallery.propTypes = {
   collections: PropTypes.array.isRequired,
   onImageClick: PropTypes.func.isRequired,
+  onBtnClick: PropTypes.func.isRequired,
 };
