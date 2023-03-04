@@ -1,6 +1,6 @@
 import { GlobalStyle } from './GlobalStyle';
 import { Layout } from './Layout';
-import Toast from 'react-bootstrap/Toast';
+// import Toast from 'react-bootstrap/Toast';
 
 import { Component } from 'react';
 import { SearchBar } from './searchbar/SearchBar';
