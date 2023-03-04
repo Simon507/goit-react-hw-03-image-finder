@@ -1,16 +1,27 @@
 import PropTypes from 'prop-types';
 
-export const ImageGallery = ({ collections }) => {
-  console.log(`MODAL`);
+import { Overlay, ModalFrame } from './Modal.styles';
+
+// const ModalWindow = document.querySelector('.overlay');
+
+export const Modal = ({ largeImageURL, tags, onOverlayClick }) => {
+  // const onKeyDown = e => {
+  //   console.log(e);
+  // };
+  // ModalWindow.addEventListener('keydown', onKeyDown);
+
   return (
-    <div className="overlay">
-      <div className="modal">
-        <img src="" alt="" />
-      </div>
-    </div>
+    <Overlay className="overlay" onClick={onOverlayClick}>
+      <ModalFrame className="modal">
+        <img src={largeImageURL} alt={tags} />
+      </ModalFrame>
+    </Overlay>
   );
 };
 
-ImageGallery.propTypes = {
-  collections: PropTypes.array.isRequired,
+Modal.propTypes = {
+  largeImageURL: PropTypes.string.isRequired,
+  tags: PropTypes.string.isRequired,
+  onOverlayClick: PropTypes.func.isRequired,
+  // onKeyDown: PropTypes.func.isRequired,
 };

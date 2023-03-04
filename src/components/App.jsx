@@ -2,12 +2,11 @@ import { GlobalStyle } from './GlobalStyle';
 import { Layout } from './Layout';
 import Toast from 'react-bootstrap/Toast';
 
-// import * as basicLightbox from 'basiclightbox';
-
 import { Component } from 'react';
 import { SearchBar } from './searchbar/SearchBar';
 import { SearchQuerry } from './SearchQuerry';
 import { ImageGallery } from './imageGallery/ImageGallery';
+import { Modal } from './modal/Modal';
 import Loader from './loader/Loader';
 
 export class App extends Component {
@@ -17,6 +16,9 @@ export class App extends Component {
     targetArr: [],
     page: 1,
     onLoad: false,
+    modalOpen: false,
+    modalSorse: '',
+    modalTxt: '',
   };
 
   onSubmit = target => {
@@ -29,20 +31,17 @@ export class App extends Component {
     this.setState({ page: pageNumber });
   };
 
-  onImageClick(webformatURL, tags) {
-    //     const instance = basicLightbox.create(`
-    //      <div className="overlay">
-    //       <div className="modal">
-    //         <img src="" alt="" />
-    //       </div>
-    //     </div>
-    // `);
-
-    //     instance.show();
-
-    console.log(webformatURL);
-    console.log(tags);
-  }
+  onImageClick = (largeImageURL, tags) => {
+    this.setState({ modalOpen: true });
+    this.setState({ modalSorse: largeImageURL });
+    this.setState({ modalTxt: tags });
+  };
+  onOverlayClick = () => {
+    this.setState({ modalOpen: false });
+  };
+  // onKeyDown = e => {
+  //   console.log(e);
+  // };
 
   onFind = (targetList, isLoading) => {
     const oldArr = this.state.collections;
@@ -70,6 +69,18 @@ export class App extends Component {
             onBtnClick={this.onBtnClick}
           ></ImageGallery>
         )}
+
+        {this.state.modalOpen && (
+          <Modal
+            largeImageURL={this.state.modalSorse}
+            tags={this.state.modalTxt}
+            onOverlayClick={this.onOverlayClick}
+            // onKeyDown={this.onKeyDown}
+          >
+            text
+          </Modal>
+        )}
+        {/* 
         <>
           <Toast>
             <Toast.Header>
@@ -83,7 +94,7 @@ export class App extends Component {
             </Toast.Header>
             <Toast.Body>Hello, world! This is a toast message.</Toast.Body>
           </Toast>
-        </>
+        </> */}
       </Layout>
     );
   }

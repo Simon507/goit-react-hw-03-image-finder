@@ -9,7 +9,7 @@ export const ImageGallery = ({ collections, onImageClick, onBtnClick }) => {
       {collections.map(item => (
         <GalleryItem key={item.id}>
           <ImageGalleryItem
-            webformatURL={item.webformatURL}
+            largeImageURL={item.largeImageURL}
             tags={item.tags}
             onImageClick={onImageClick}
           />
