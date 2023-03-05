@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 
 import { ImageGalleryItem } from 'components/imageGalleryItem/ImageGalleryItem';
-import { Imagelist, GalleryItem, LoadMoreBtn } from './ImageGallery.styles';
+import { Imagelist, GalleryItem } from './ImageGallery.styles';
 
-export const ImageGallery = ({ collections, onImageClick, onBtnClick }) => {
+export const ImageGallery = ({ collections, onImageClick }) => {
   return (
     <Imagelist className="gallery">
       {collections.map(item => (
@@ -15,11 +15,6 @@ export const ImageGallery = ({ collections, onImageClick, onBtnClick }) => {
           />
         </GalleryItem>
       ))}
-      {collections.length > 0 && (
-        <LoadMoreBtn type="button" onClick={onBtnClick}>
-          Load more
-        </LoadMoreBtn>
-      )}
     </Imagelist>
   );
 };
@@ -27,5 +22,4 @@ export const ImageGallery = ({ collections, onImageClick, onBtnClick }) => {
 ImageGallery.propTypes = {
   collections: PropTypes.array.isRequired,
   onImageClick: PropTypes.func.isRequired,
-  onBtnClick: PropTypes.func.isRequired,
 };

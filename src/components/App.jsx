@@ -7,6 +7,7 @@ import { SearchBar } from './searchbar/SearchBar';
 import { SearchQuerry } from './searchQuerry/SearchQuerry';
 import { ImageGallery } from './imageGallery/ImageGallery';
 import { ModalWindow } from './modal/ModalWindow';
+import { LoadMore } from './loadMoreBtn/LoadMoreBtn';
 
 export class App extends Component {
   state = {
@@ -44,7 +45,7 @@ export class App extends Component {
     this.setState({ modalOpen: false });
   };
 
-  onFind = (targetList, isLoading) => {
+  onFind = targetList => {
     const oldArr = this.state.collections;
     const newArr = oldArr.concat(targetList);
     this.setState({ collections: newArr });
@@ -64,8 +65,11 @@ export class App extends Component {
         <ImageGallery
           collections={this.state.collections}
           onImageClick={this.onImageClick}
-          onBtnClick={this.onBtnClick}
         ></ImageGallery>
+
+        {this.state.collections.length > 0 && (
+          <LoadMore onBtnClick={this.onBtnClick} />
+        )}
 
         {this.state.modalOpen && (
           <ModalWindow
