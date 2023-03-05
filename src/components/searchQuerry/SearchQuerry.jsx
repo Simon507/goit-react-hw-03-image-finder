@@ -19,27 +19,25 @@ export class SearchQuerry extends Component {
     ) {
       this.setState({ isLoading: true });
 
-      await setTimeout(() => {
-        axios
-          .get(
-            `?q=${this.props.target}&page=${this.props.page}&key=32355141-118a8dcb9c7f98144e9365121&image_type=photo&orientation=horizontal&per_page=12`
-          )
-          .then(obj => {
-            if (obj.data.hits.length === 0) {
-              this.setState({
-                errorMessage:
-                  'There are no images for this request, please try another one!!!',
-              });
-              return;
-            } else {
-              this.props.onFind(obj.data.hits, this.state.isLoading);
-            }
-          })
-          .catch(error => {
-            this.setState({ errorMessage: error });
-          })
-          .finally(this.setState({ isLoading: false }));
-      }, 2500);
+      await axios
+        .get(
+          `?q=${this.props.target}&page=${this.props.page}&key=32355141-118a8dcb9c7f98144e9365121&image_type=photo&orientation=horizontal&per_page=12`
+        )
+        .then(obj => {
+          if (obj.data.hits.length === 0) {
+            this.setState({
+              errorMessage:
+                'There are no images for this request, please try another one!!!',
+            });
+            return;
+          } else {
+            this.props.onFind(obj.data.hits, this.state.isLoading);
+          }
+        })
+        .catch(error => {
+          this.setState({ errorMessage: error });
+        })
+        .finally(this.setState({ isLoading: false }));
     }
   }
 
