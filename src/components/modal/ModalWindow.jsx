@@ -1,27 +1,22 @@
-import PropTypes from 'prop-types';
-
+import { Component } from 'react';
 import { Overlay, ModalFrame } from './ModalWindow.styles';
 
-// const ModalWindow = document.querySelector('.overlay');
+export class ModalWindow extends Component {
+  componentDidMount() {
+    window.addEventListener('keydown', e => {
+      if (e.code === 'Escape') {
+        this.props.onModalClose();
+      }
+    });
+  }
 
-export const ModalWindow = ({ largeImageURL, tags, onOverlayClick }) => {
-  // const onKeyDown = e => {
-  //   console.log(e);
-  // };
-  // ModalWindow.addEventListener('keydown', onKeyDown);
-
-  return (
-    <Overlay className="overlay" onClick={onOverlayClick}>
-      <ModalFrame className="modal">
-        <img src={largeImageURL} alt={tags} />
-      </ModalFrame>
-    </Overlay>
-  );
-};
-
-ModalWindow.propTypes = {
-  largeImageURL: PropTypes.string.isRequired,
-  tags: PropTypes.string.isRequired,
-  onOverlayClick: PropTypes.func.isRequired,
-  // onKeyDown: PropTypes.func.isRequired,
-};
+  render() {
+    return (
+      <Overlay className="overlay" onClick={this.props.onModalClose}>
+        <ModalFrame className="modal">
+          <img src={this.props.largeImageURL} alt={this.props.tags} />
+        </ModalFrame>
+      </Overlay>
+    );
+  }
+}

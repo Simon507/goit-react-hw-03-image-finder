@@ -1,28 +1,32 @@
 import { GlobalStyle } from './GlobalStyle';
 import { Layout } from './Layout';
-// import Toast from 'react-bootstrap/Toast';
+import { Toaster } from './Toaster';
 
 import { Component } from 'react';
 import { SearchBar } from './searchbar/SearchBar';
-import { SearchQuerry } from './SearchQuerry';
+import { SearchQuerry } from './searchQuerry/SearchQuerry';
 import { ImageGallery } from './imageGallery/ImageGallery';
 import { ModalWindow } from './modal/ModalWindow';
-import Loader from './loader/Loader';
 
 export class App extends Component {
   state = {
     collections: [],
-    target: '',
+    target: null,
     targetArr: [],
     page: 1,
-    onLoad: false,
     modalOpen: false,
     modalSorse: '',
     modalTxt: '',
+    errorMessage: null,
   };
 
   onSubmit = target => {
-    this.setState({ target });
+    if (!target) {
+      this.setState({ errorMessage: 'Please enter any words for request' });
+    } else {
+      this.setState({ target });
+      this.setState({ errorMessage: null });
+    }
   };
 
   onBtnClick = e => {
@@ -36,18 +40,14 @@ export class App extends Component {
     this.setState({ modalSorse: largeImageURL });
     this.setState({ modalTxt: tags });
   };
-  onOverlayClick = () => {
+  onModalClose = () => {
     this.setState({ modalOpen: false });
   };
-  // onKeyDown = e => {
-  //   console.log(e);
-  // };
 
   onFind = (targetList, isLoading) => {
     const oldArr = this.state.collections;
     const newArr = oldArr.concat(targetList);
     this.setState({ collections: newArr });
-    this.setState({ onLoad: isLoading });
   };
 
   render() {
@@ -60,39 +60,23 @@ export class App extends Component {
           onFind={this.onFind}
           page={this.state.page}
         ></SearchQuerry>
-        {this.state.onLoad ? (
-          <Loader></Loader>
-        ) : (
-          <ImageGallery
-            collections={this.state.collections}
-            onImageClick={this.onImageClick}
-            onBtnClick={this.onBtnClick}
-          ></ImageGallery>
-        )}
+
+        <ImageGallery
+          collections={this.state.collections}
+          onImageClick={this.onImageClick}
+          onBtnClick={this.onBtnClick}
+        ></ImageGallery>
 
         {this.state.modalOpen && (
           <ModalWindow
             largeImageURL={this.state.modalSorse}
             tags={this.state.modalTxt}
-            onOverlayClick={this.onOverlayClick}
-            // onKeyDown={this.onKeyDown}
+            onModalClose={this.onModalClose}
           ></ModalWindow>
         )}
-        {/* 
-        <>
-          <Toast>
-            <Toast.Header>
-              <img
-                src="holder.js/20x20?text=%20"
-                className="rounded me-2"
-                alt=""
-              />
-              <strong className="me-auto">Bootstrap</strong>
-              <small>11 mins ago</small>
-            </Toast.Header>
-            <Toast.Body>Hello, world! This is a toast message.</Toast.Body>
-          </Toast>
-        </> */}
+        {this.state.errorMessage && (
+          <Toaster message={this.state.errorMessage} />
+        )}
       </Layout>
     );
   }

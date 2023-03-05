@@ -7,18 +7,17 @@ import {
   SearchFormBtn,
   SearchInput,
 } from './SearchBar.styles';
-import PropTypes from 'prop-types';
 
 export class SearchBar extends Component {
   state = {
-    target: '',
-    collections: null,
+    target: null,
   };
   handleChange = ({ target }) => {
     this.setState({ target: target.value });
   };
   handleSubmit = e => {
     e.preventDefault();
+
     this.props.onSubmit(this.state.target);
   };
 
@@ -44,7 +43,3 @@ export class SearchBar extends Component {
     );
   }
 }
-
-SearchBar.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};

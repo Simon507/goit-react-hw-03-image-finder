@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 import { ImageGalleryItem } from 'components/imageGalleryItem/ImageGalleryItem';
-import { Imagelist, GalleryItem } from './ImageGallery.styles';
+import { Imagelist, GalleryItem, LoadMoreBtn } from './ImageGallery.styles';
 
 export const ImageGallery = ({ collections, onImageClick, onBtnClick }) => {
   return (
@@ -16,9 +16,9 @@ export const ImageGallery = ({ collections, onImageClick, onBtnClick }) => {
         </GalleryItem>
       ))}
       {collections.length > 0 && (
-        <button type="button" onClick={onBtnClick}>
+        <LoadMoreBtn type="button" onClick={onBtnClick}>
           Load more
-        </button>
+        </LoadMoreBtn>
       )}
     </Imagelist>
   );
