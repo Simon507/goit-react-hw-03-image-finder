@@ -13,18 +13,22 @@ export class App extends Component {
   state = {
     collections: [],
     target: null,
-    targetArr: [],
     page: 1,
     modalOpen: false,
     modalSorse: '',
     modalTxt: '',
     errorMessage: null,
+    totalPage: 1,
   };
 
   onSubmit = target => {
     if (!target) {
       this.setState({ errorMessage: 'Please enter any words for request' });
     } else {
+      if (this.state.target !== target) {
+        this.setState({ collections: [], page: 1 });
+      }
+
       this.setState({ target });
       this.setState({ errorMessage: null });
     }
@@ -45,10 +49,12 @@ export class App extends Component {
     this.setState({ modalOpen: false });
   };
 
-  onFind = targetList => {
+  onFind = (targetList, totalHits) => {
     const oldArr = this.state.collections;
     const newArr = oldArr.concat(targetList);
     this.setState({ collections: newArr });
+    console.log(`TOal page: ${totalHits}`);
+    this.setState({ totalPage: Math.ceil(totalHits / 12) });
   };
 
   render() {
@@ -67,9 +73,10 @@ export class App extends Component {
           onImageClick={this.onImageClick}
         ></ImageGallery>
 
-        {this.state.collections.length > 0 && (
-          <LoadMore onBtnClick={this.onBtnClick} />
-        )}
+        {this.state.collections.length > 0 &&
+          this.state.page < this.state.totalPage && (
+            <LoadMore onBtnClick={this.onBtnClick} />
+          )}
 
         {this.state.modalOpen && (
           <ModalWindow
